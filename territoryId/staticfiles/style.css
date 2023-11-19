@@ -1,0 +1,115 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.login-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #000; /* Fondo negro */
+}
+
+.login-container {
+  width: 400px;
+  background-color: #222; /* Fondo del formulario */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad */
+}
+
+.logo {
+  display: block;
+  max-width: 100%; /* Esto asegura que la imagen no sea más grande que su contenedor */
+  height: auto; /* Esto mantiene la proporción de la imagen */
+  margin-bottom: 20px;
+}
+
+.login-title {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 15px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  color: #bbb; /* Color del texto */
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  padding-right: 40px; /* Espacio para el ícono */
+  border: none;
+  border-radius: 4px;
+  background-color: #ffffff; /* Fondo de los inputs */
+  color: #000000; /* Color del texto de los inputs */
+}
+
+.input-group .icon {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 0.5em); /* Centrado vertical */
+  color: #555; /* Color de los íconos */
+}
+
+.forgot-password {
+  display: block;
+  color: #5591ff; /* Color para el enlace de contraseña olvidada */
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.login-btn, .signup-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #5591ff; /* Color de los botones */
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover, .signup-btn:hover {
+  background-color: #4179cc; /* Color al pasar el mouse */
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider span {
+  background-color: #222; /* Fondo del formulario */
+  padding: 0 10px;
+}
+
+.divider:before, .divider:after {
+  content: '';
+  display: inline-block;
+  width: 40%;
+  height: 1px;
+  vertical-align: middle;
+  background-color: #555; /* Color de las líneas */
+}
+
+/* Agrega tus propias reglas para los íconos aquí */
+
+/* Ajustes responsivos (opcional) */
+@media (max-width: 480px) {
+  .login-container {
+    width: 90%;
+    padding: 20px;
+  }
+}
