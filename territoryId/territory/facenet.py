@@ -9,17 +9,20 @@ import numpy as np
 def draw(frame, boxes, probs, landmarks, names):
     frame_draw = frame.copy()
     frame_pil = Image.fromarray(frame)
-    draw = ImageDraw.Draw(frame_pil)
-    for box, prob, ld, name in zip(boxes, probs, landmarks, names):
-        # Draw rectangle around the face
-        draw.rectangle(box.tolist(), outline=(0, 255, 0), width=6)
 
-        # Draw a label with a name below the face
-        draw.text((box[0], box[1]), f'{name} ({prob:.2f})', fill=(0, 255, 0))
+    # Comprueba si 'boxes' es None antes de iterar
+    if boxes is not None:
+        draw = ImageDraw.Draw(frame_pil)
+        for box, prob, ld, name in zip(boxes, probs, landmarks, names):
+            # Dibuja el rectángulo alrededor del rostro
+            draw.rectangle(box.tolist(), outline=(0, 255, 0), width=6)
 
-        # Draw landmarks
-        for point in ld:
-            draw.ellipse([(point[0] - 2, point[1] - 2), (point[0] + 2, point[1] + 2)], fill=(0, 255, 0))
+            # Dibuja una etiqueta con el nombre debajo del rostro
+            draw.text((box[0], box[1]), f'{name} ({prob:.2f})', fill=(0, 255, 0))
+
+            # Dibuja los puntos de referencia
+            for point in ld:
+                draw.ellipse([(point[0] - 2, point[1] - 2), (point[0] + 2, point[1] + 2)], fill=(0, 255, 0))
 
     return np.array(frame_pil)
 
@@ -42,40 +45,45 @@ class FaceRecognition:
         #     self.known_names.append('Name')
 
     def run_recognition(self):
-        cap = cv2.VideoCapture(0)  # Use 0 for webcam
+        cap = cv2.VideoCapture(0)  # Usa 0 para la webcam
 
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
-            # Convert to PIL image
+            # Convertir a imagen PIL
             frame_pil = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
-            # Detect faces
+            # Detectar rostros
             boxes, probs, landmarks = self.mtcnn.detect(frame_pil, landmarks=True)
 
-            # Predict names for detected faces
+            # Predecir nombres para los rostros detectados
             face_names = []
             if boxes is not None:
                 for box in boxes:
-                    # Extract the face
+                    # Extraer el rostro
                     face = frame_pil.crop(box).resize((160, 160))
 
-                    # Calculate embedding (feature vector)
-                    face_embedding = self.resnet(self.mtcnn(face)).detach().cpu()
+                    # Asegurarse de que el rostro no sea None
+                    if self.mtcnn(face) is not None:
+                        # Calcular embedding (vector característico)
+                        face_embedding = self.resnet(self.mtcnn(face)).detach().cpu()
 
-                    # Compare the face with known faces
-                    distances = [torch.norm(e - face_embedding) for e in self.known_faces]
-                    min_distance = min(distances) if distances else None
-                    name = self.known_names[distances.index(min_distance)] if min_distance and min_distance < 0.6 else "Unknown"
-                    face_names.append(name)
+                        # Comparar el rostro con rostros conocidos
+                        distances = [torch.norm(e - face_embedding) for e in self.known_faces]
+                        min_distance = min(distances) if distances else None
+                        name = self.known_names[
+                            distances.index(min_distance)] if min_distance and min_distance < 0.6 else "Desconocido"
+                        face_names.append(name)
+                    else:
+                        face_names.append("Desconocido")
 
-            # Draw results on the frame
+            # Dibujar resultados en el marco
             frame_drawn = draw(frame, boxes, probs, landmarks, face_names)
-            cv2.imshow('Face Recognition', np.array(frame_drawn))
+            cv2.imshow('Reconocimiento Facial', np.array(frame_drawn))
 
-            # Hit 'q' on the keyboard to quit
+            # Presiona 'q' en el teclado para salir
             if cv2.waitKey(1) == ord('q'):
                 break
 
