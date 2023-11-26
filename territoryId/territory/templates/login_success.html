@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Successful</title>
+    <link rel="stylesheet" href="{% static 'login_success.css' %}">
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'territoryId.png' %}" alt="Logo" class="logo">
+        <h1>Successful login</h1>
+        <p>It's time to do face recognition</p>
+<!--        <a href="/login">Do it</a>-->
+        <form action="{% url 'login_success' %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="a">Do it</button>
+        </form>
+    </div>
+</body>
+</html>

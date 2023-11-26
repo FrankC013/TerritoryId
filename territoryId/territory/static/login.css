@@ -35,6 +35,18 @@ body, html {
   font-size: 15px;
 }
 
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block;
+}
+
+.input-group .error {
+    margin-bottom: 10px;
+    color: red;
+}
+
 .input-group {
   position: relative;
   margin-bottom: 20px;

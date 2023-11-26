@@ -52,12 +52,25 @@ body, html {
 .input-group {
   display: flex;
   flex-direction: column;
-  width: 48%; /* Aproximadamente la mitad del contenedor para alinear dos columnas */
+  width: 48%;
+  margin-bottom: 5px;
 }
 
 .input-group label {
   display: block;
   margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+    display: block;
+}
+
+.input-group .error {
+    margin-bottom: 10px;
+    color: red;
 }
 
 .input-group input {
