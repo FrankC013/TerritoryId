@@ -1,4 +1,5 @@
 {% load static %}
+{% csrf_token %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +13,7 @@
     <div class="signup-container">
         <img src="{% static 'territoryId.png' %}" alt="Logo" class="logo">
         <h1 class="signup-title">Signup for a new account</h1>
+        <button id="face-register-btn" style="display: none;" class="face-register-btn">Face Register</button>
         <form method="POST" action="." class="login-form spacer" id="signup-form">
             {% csrf_token %}
             <div class="form-row">
@@ -66,5 +68,40 @@
         </form>
     </div>
 </div>
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<script>
+    window.onload = function() {
+        {% if registration_success %}
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('face-register-btn').style.display = 'block';
+        {% endif %}
+    }
+
+    document.getElementById('face-register-btn').addEventListener('click', function() {
+        var csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+        var username = document.getElementById('username').value;
+
+        fetch('/face_register/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Face registration completed successfully. You can now log in.');
+                window.location.href = '/login/';
+            } else {
+                alert('Error in facial registration');
+            }
+        })
+        .catch(error => {
+            console.error('AJAX request error:', error);
+        });
+    });
+</script>
 </body>
 </html>

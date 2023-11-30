@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Successful</title>
     <link rel="stylesheet" href="{% static 'login_success.css' %}">
+    <script type="text/javascript">
+        window.onload = function() {
+            {% if registration_success %}
+                alert('Face recognition completed successfully. All good.');
+            {% endif %}
+        };
+    </script>
 </head>
 <body>
     <div class="container">
@@ -14,8 +21,9 @@
         <p>It's time to do face recognition</p>
 <!--        <a href="/login">Do it</a>-->
         <form action="{% url 'login_success' %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="a">Do it</button>
+            {% csrf_token %}
+            <input type="hidden" name="username" value="{{ user.username }}">
+            <button type="submit" class="a">Do it</button>
         </form>
     </div>
 </body>

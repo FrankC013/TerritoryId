@@ -98,6 +98,27 @@ body, html {
   background-color: #4179cc;
 }
 
+.face-register-btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    background-color: #5591ff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    margin-top: 30px;
+    transition: background-color 0.3s;
+    width: 300px; /* Ancho del botón */
+    margin: 20px auto; /* Centra el botón horizontalmente y añade un margen vertical */
+    padding: 10px 15px; /* Espaciado interno para el texto del botón */
+    cursor: pointer; /* Cursor en forma de mano al pasar por encima */
+}
+
+.face-register-btn:hover {
+  background-color: #4179cc;
+}
+
 /* Ajuste responsivo */
 @media (max-width: 600px) {
   .signup-container {
