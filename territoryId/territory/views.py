@@ -1,4 +1,5 @@
 import json
+import subprocess
 
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
@@ -24,6 +25,16 @@ def face_register(request):
         username = data.get('username')
         face_registrar = FaceRegister(mtcnn, resnet)
         face_registrar.capture_faces(username)
+        command = [
+            "./target/release/node-template",
+            "--base-path", "/ruta/donde/quieras/almacenar/nodeFrank",
+            "--chain", "local",
+            "--name", "nodeFrank",
+            "--validator"
+        ]
+
+        # Ejecuta el comando
+        subprocess.run(command)
     return JsonResponse({'status': 'success'})
 
 def login_view(request):
