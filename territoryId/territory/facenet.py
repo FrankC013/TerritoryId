@@ -21,4 +21,4 @@ if __name__ == '__main__':
     # Reconocer caras
     face_recognizer = FaceRecognition(mtcnn, resnet)
     face_recognizer.load_known_faces("faces")
-    face_recognizer.run_recognition(username="F")
+    face_recognizer.run_recognition()

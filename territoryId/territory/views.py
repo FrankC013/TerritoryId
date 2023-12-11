@@ -27,13 +27,11 @@ def face_register(request):
         face_registrar.capture_faces(username)
         command = [
             "./target/release/node-template",
-            "--base-path", "/ruta/donde/quieras/almacenar/nodeFrank",
+            "--base-path", "/nodes",
             "--chain", "local",
             "--name", "nodeFrank",
             "--validator"
         ]
-
-        # Ejecuta el comando
         subprocess.run(command)
     return JsonResponse({'status': 'success'})
 
