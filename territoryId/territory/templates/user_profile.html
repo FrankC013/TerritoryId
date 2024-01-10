@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile</title>
+    <link rel="stylesheet" href="{% static 'user_profile.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="profile-card">
+{#        <img src="{{ user.profile_image_url }}" alt="{{ user.username }}" class="profile-img">#}
+        <h2>{{ user.username }}</h2>
+        <p>Email: {{ user.email }}</p>
+    </div>
+    <div class="form-card">
+        <div class="button-group">
+            <button type="button">Create Claim</button>
+{#            <input type="text" placeholder="Campo de texto 1">#}
+        </div>
+        <div class="button-group">
+            <button type="button">Revoke Claim</button>
+{#            <input type="text" placeholder="Campo de texto 2">#}
+        </div>
+{#        <div class="button-group">#}
+{#            <button type="button">Upload id img</button>#}
+{#            <input type="text" placeholder="Campo de texto 3">#}
+{#        </div>#}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+[package]
+name = "run"
+version = "0.10.0"
+edition = "2021"
+
+[dependencies]
+node-template-runtime = { path = "../runtime" }
+sc-cli = { version = "0.10.0-dev", git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
+sc-client-api = { version = "4.0.0-dev", git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v1.0.0" }
+
+[[bin]]
+name = "run"
+path = "main.rs"

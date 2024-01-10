@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .forms import SignUpForm, CustomLoginForm
 
@@ -74,3 +76,25 @@ def success(request):
         face_recognizer.run_recognition(username)
         return render(request, 'login_success.html', {'registration_success': True})
     return render(request, 'login_success.html')
+
+@login_required
+def user_profile(request):
+    # Obtienes el objeto User del usuario actual
+    user = request.user
+
+    # Aquí no es necesario buscar un perfil adicional,
+    # ya que usaremos los datos directamente del modelo User.
+
+    # Si estás utilizando un formulario para actualizar el perfil,
+    # aquí procesarías el formulario y actualizarías el objeto User.
+    if request.method == 'POST':
+        # Aquí iría la lógica para manejar los datos del formulario, por ejemplo:
+        # user.first_name = request.POST['first_name']
+        # user.save()
+        pass
+
+    # Pasamos el objeto User al contexto para usarlo en el template
+    context = {
+        'user': user,
+    }
+    return render(request, 'user_profile.html', context)
